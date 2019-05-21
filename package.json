@@ -1,0 +1,29 @@
+{
+  "name": "prisma-apollo-seed",
+  "version": "1.0.0",
+  "description": "A seed project using a Prisma Client with Apollo Server.",
+  "main": ".src/index.js",
+  "keywords": [
+    "apollo",
+    "graphql",
+    "prisma"
+  ],
+  "author": "mandiwise",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mandiwise/prisma-apollo-seed"
+  },
+  "license": "Apache-2.0",
+  "dependencies": {
+    "apollo-server-express": "^2.5.0",
+    "dotenv": "^8.0.0",
+    "express": "^4.16.4",
+    "graphql": "^14.3.0",
+    "graphql-import": "^0.7.1",
+    "prisma-client-lib": "^1.33.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.0",
+    "prisma": "^1.33.0"
+  }
+}

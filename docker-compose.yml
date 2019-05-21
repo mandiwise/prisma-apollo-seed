@@ -1,0 +1,50 @@
+version: "3"
+
+services:
+  app:
+    container_name: app
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NODE_ENV: ${NODE_ENV}
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV
+      - PRISMA_ENDPOINT
+      - PRISMA_MANAGEMENT_API_SECRET
+      - PRISMA_SERVICE_SECRET
+    volumes:
+      - .:/home/node/app:delegated
+      - /home/node/app/node_modules
+    depends_on:
+      - prisma
+  prisma:
+    container_name: prisma
+    image: prismagraphql/prisma:1.33
+    restart: always
+    ports:
+      - "4466:4466"
+    environment:
+      PRISMA_CONFIG: |
+        port: 4466
+        databases:
+          default:
+            connector: postgres
+            host: postgres
+            port: 5432
+            user: prisma
+            password: ${POSTGRES_PASSWORD}
+  postgres:
+    container_name: postgres
+    image: postgres:10.3
+    restart: always
+    environment:
+      POSTGRES_USER: prisma
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres:/var/lib/postgresql/data
+volumes:
+  postgres: ~

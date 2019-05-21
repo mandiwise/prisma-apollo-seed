@@ -1,0 +1,45 @@
+server {
+    listen 80;
+    server_name ${DOMAIN};
+    server_tokens off;
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+server {
+    listen 443 ssl;
+    server_name ${DOMAIN};
+    server_tokens off;
+
+    ssl_certificate /etc/letsencrypt/live/${DOMAIN}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/${DOMAIN}/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    location /prisma/prod {
+        proxy_pass  http://prisma:4466;
+        proxy_set_header    Host                $http_host;
+        proxy_set_header    X-Real-IP           $remote_addr;
+        proxy_set_header    X-Forwarded-For     $proxy_add_x_forwarded_for;
+    }
+
+    location /management {
+        proxy_pass  http://prisma:4466;
+        proxy_set_header    Host                $http_host;
+        proxy_set_header    X-Real-IP           $remote_addr;
+        proxy_set_header    X-Forwarded-For     $proxy_add_x_forwarded_for;
+    }
+
+    location /graphql {
+        proxy_pass  http://app:4000/graphql;
+        proxy_set_header    Host                $http_host;
+        proxy_set_header    X-Real-IP           $remote_addr;
+        proxy_set_header    X-Forwarded-For     $proxy_add_x_forwarded_for;
+    }
+}

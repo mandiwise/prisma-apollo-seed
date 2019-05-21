@@ -1,0 +1,7 @@
+# Direct imports from the Prisma GraphQL schema
+
+# import User from "./generated/prisma.graphql"
+# import Query.user, Query.users from "./generated/prisma.graphql"
+# import Mutation.createUser, Mutation.deleteUser, Mutation.updateUser from "./generated/prisma.graphql"
+
+# Add additional types, queries, and mutations below as needed!
