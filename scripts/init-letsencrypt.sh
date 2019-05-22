@@ -21,11 +21,8 @@ if [ ! -e "$data_path/conf/options-ssl-nginx.conf" ] || [ ! -e "$data_path/conf/
   echo
 fi
 
-# Make temp directory to pass with docker-composes command
-mkdir -p tmp
-
 echo "### Removing old certificate for $DOMAIN ..."
-PROJECT_DIR="./tmp" docker-compose -f docker-compose.yml -f docker-compose.prod.yml run --rm --entrypoint "\
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml run --rm --entrypoint "\
   rm -Rf /etc/letsencrypt/live/$DOMAIN && \
   rm -Rf /etc/letsencrypt/archive/$DOMAIN && \
   rm -Rf /etc/letsencrypt/renewal/$DOMAIN.conf" certbot

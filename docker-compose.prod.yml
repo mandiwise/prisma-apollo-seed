@@ -8,11 +8,9 @@ services:
     container_name: nginx
     restart: unless-stopped
     volumes:
-      - ./data/nginx:/etc/nginx/conf.d
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
-      - ./images:/usr/share/nginx/html/static
-      - ./site:/usr/share/nginx/html/r10.academy.red
+      - ./config/nginx:/etc/nginx/conf.d
+      - ./config/certbot/conf:/etc/letsencrypt
+      - ./config/certbot/www:/var/www/certbot
     ports:
       - "80:80"
       - "443:443"
@@ -29,6 +27,6 @@ services:
     container_name: certbot
     restart: unless-stopped
     volumes:
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
+      - ./config/certbot/conf:/etc/letsencrypt
+      - ./config/certbot/www:/var/www/certbot
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
