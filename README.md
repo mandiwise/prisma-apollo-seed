@@ -34,7 +34,9 @@ $ docker exec app prisma deploy
 
 The API will be accessible on [localhost:4000/graphql](http://localhost:4000/graphql).
 
-Nodemon will automatically reload the `app` container on changes when working in the `development` environment. Be sure to re-deploy Prisma if you make changes to the Prisma schema in `prisma/datamodel.prisma`.
+Nodemon will automatically reload the `app` container on changes when working in the `development` environment. Be sure to re-deploy Prisma if you make changes to the Prisma schema in `prisma/datamodel.prisma` or the config in `prisma/prisma.yml`.
+
+_This must be done in both local and production environments when changes are made to these files!_
 
 ## Prisma Authentication
 
@@ -89,10 +91,10 @@ $ sudo ufw allow proto tcp from any to any port 80,443
 
 ### Installation & Set-up
 
-Then clone this repo and install its dependencies:
+Clone your repo (based on this one) and install its dependencies:
 
 ```bash
-$ git clone https://github.com/mandiwise/prisma-apollo-seed.git
+$ git clone <REPO URL GOES HERE>
 $ cd prisma-apollo-seed && npm install
 ```
 
